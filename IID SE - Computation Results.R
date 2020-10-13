@@ -130,7 +130,7 @@ sample.sizes <- c(60, 120, 240)
 
 # Distribution parameters
 mean <- 0.01
-true.val <- c(0.2, 0.5)[1]
+true.val <- c(0.02, 0.05)[1]
 N.scale <- c(0.02, 0.05)[1]
 t.scale <- c(0.0155, 0.039)[1]
 data.dist <- c("N", "t")[1]
@@ -186,7 +186,7 @@ sample.sizes <- c(60, 120, 240)
 
 # Distribution parameters
 mean <- 0.01
-true.val <- c(0.2, 0.5)[1]
+true.val <- c(0.02, 0.05)[1]
 N.scale <- c(0.02855, 0.0715)[1]
 t.scale <- c(0.022, 0.055)[1]
 data.dist <- c("N", "t")[1]
