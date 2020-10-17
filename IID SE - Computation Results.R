@@ -218,8 +218,6 @@ for(n in sample.sizes){
   # Computation over replications
   for(rep in 1:M){
     
-    cat(rep, "\n")
-    
     # Computation of SE output
     out <- SemiSD.SE(full.data[,rep, drop=FALSE], se.method=c("IFiid"))
     point.est[rep] <- as.numeric(out$SSD)
