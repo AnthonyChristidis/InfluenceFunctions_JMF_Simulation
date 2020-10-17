@@ -36,6 +36,8 @@ for(n in sample.sizes){
   if(data.dist=="N")
     full.data <- sapply(1:M, function(x) rnorm(n, mean, N.scale), simplify=TRUE) else if(data.dist=="t")
       full.data <- sapply(1:M, function(x) rt.scaled(n, df=5, mean=mean, sd=t.scale), simplify=TRUE)
+  # Casting as TS
+  full.data <- as.ts(full.data)
   
   # Vectors to store output
   point.est <- SE.est <- numeric(M)
@@ -44,7 +46,7 @@ for(n in sample.sizes){
   for(rep in 1:M){
 
     # Computation of SE output
-    out <- SharpeRatio.SE(as.ts(full.data[,rep, drop=FALSE]), se.method=c("IFiid"))
+    out <- SharpeRatio.SE(full.data[,rep, drop=FALSE], se.method=c("IFiid"))
     point.est[rep] <- as.numeric(out$SR)
     SE.est[rep] <- out$IFiid$se
   }
@@ -91,7 +93,9 @@ for(n in sample.sizes){
   if(data.dist=="N")
     full.data <- sapply(1:M, function(x) rnorm(n, mean, N.scale), simplify=TRUE) else if(data.dist=="t")
       full.data <- sapply(1:M, function(x) rt.scaled(n, df=5, mean=mean, sd=t.scale), simplify=TRUE)
-  
+  # Casting as TS
+  full.data <- as.ts(full.data)
+    
   # Vectors to store output
   point.est <- SE.est <- numeric(M)
   
@@ -99,7 +103,7 @@ for(n in sample.sizes){
   for(rep in 1:M){
 
     # Computation of SE output
-    out <- SortinoRatio.SE(as.ts(full.data[,rep, drop=FALSE]), se.method=c("IFiid"), threshold=c("mean","const")[1])
+    out <- SortinoRatio.SE(full.data[,rep, drop=FALSE], se.method=c("IFiid"), threshold=c("mean","const")[1])
     point.est[rep] <- as.numeric(out$SoR)/sqrt(2)
     SE.est[rep] <- out$IFiid$se/sqrt(2)
   }
@@ -147,6 +151,8 @@ for(n in sample.sizes){
   if(data.dist=="N")
     full.data <- sapply(1:M, function(x) rnorm(n, mean, N.scale), simplify=TRUE) else if(data.dist=="t")
       full.data <- sapply(1:M, function(x) rt.scaled(n, df=5, mean=mean, sd=t.scale), simplify=TRUE)
+  # Casting as TS
+  full.data <- as.ts(full.data)
   
   # Vectors to store output
   point.est <- SE.est <- numeric(M)
@@ -155,7 +161,7 @@ for(n in sample.sizes){
   for(rep in 1:M){
 
     # Computation of SE output
-    out <- StdDev.SE(as.ts(full.data[,rep, drop=FALSE]), se.method=c("IFiid"))
+    out <- StdDev.SE(full.data[,rep, drop=FALSE], se.method=c("IFiid"))
     point.est[rep] <- as.numeric(out$SD)
     SE.est[rep] <- out$IFiid$se
   }
@@ -186,10 +192,10 @@ sample.sizes <- c(60, 120, 240)
 
 # Distribution parameters
 mean <- 0.01
-true.val <- c(0.02, 0.05)[1]
+true.val <- c(0.02, 0.05)[2]
 N.scale <- c(0.02855, 0.0715)[1]
-t.scale <- c(0.022, 0.055)[1]
-data.dist <- c("N", "t")[1]
+t.scale <- c(0.022, 0.055)[2]
+data.dist <- c("N", "t")[2]
 
 # Matrix for output
 n.out <- matrix(nrow=3, ncol=5)
@@ -203,6 +209,8 @@ for(n in sample.sizes){
   if(data.dist=="N")
     full.data <- sapply(1:M, function(x) rnorm(n, mean, N.scale), simplify=TRUE) else if(data.dist=="t")
       full.data <- sapply(1:M, function(x) rt.scaled(n, df=5, mean=mean, sd=t.scale), simplify=TRUE)
+  # Casting as TS
+  full.data <- as.ts(full.data)
   
   # Vectors to store output
   point.est <- SE.est <- numeric(M)
@@ -210,8 +218,10 @@ for(n in sample.sizes){
   # Computation over replications
   for(rep in 1:M){
     
+    cat(rep, "\n")
+    
     # Computation of SE output
-    out <- SemiSD.SE(as.ts(full.data[,rep, drop=FALSE]), se.method=c("IFiid"))
+    out <- SemiSD.SE(full.data[,rep, drop=FALSE], se.method=c("IFiid"))
     point.est[rep] <- as.numeric(out$SSD)
     SE.est[rep] <- out$IFiid$se
   }
