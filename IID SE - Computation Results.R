@@ -46,7 +46,7 @@ for(n in sample.sizes){
   for(rep in 1:M){
 
     # Computation of SE output
-    out <- SharpeRatio.SE(full.data[,rep, drop=FALSE], se.method=c("IFiid"))
+    out <- SharpeRatio.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"))
     point.est[rep] <- as.numeric(out$SR)
     SE.est[rep] <- out$IFiid$se
   }
@@ -58,7 +58,7 @@ for(n in sample.sizes){
   SE.bias <- (SE.IF - SE.mc)/SE.mc
   
   # Simulation output
-  n.out[n==sample.sizes,] <- c(round(mean(point.est),4), round((mean(point.est)-true.val)/true.val*100, 1), round(SE.mc, 4), round(SE.IF, 4), round(SE.bias*100, 1), round(rej.prob, 3)*100)
+  n.out[n==sample.sizes,] <- c(round(mean(point.est),4), round(SE.mc, 4), round(SE.IF, 4), round(SE.bias*100, 1), round(rej.prob, 3)*100)
 }
 
 # Sample size output
@@ -103,9 +103,9 @@ for(n in sample.sizes){
   for(rep in 1:M){
 
     # Computation of SE output
-    out <- SortinoRatio.SE(full.data[,rep, drop=FALSE], se.method=c("IFiid"), threshold=c("mean","const")[1])
-    point.est[rep] <- as.numeric(out$SoR)/sqrt(2)
-    SE.est[rep] <- out$IFiid$se/sqrt(2)
+    out <- SortinoRatio.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"), threshold=c("mean","const")[1])
+    point.est[rep] <- as.numeric(out$SoR)
+    SE.est[rep] <- out$IFiid$se
   }
   
   # Computation of SEs output
@@ -161,7 +161,7 @@ for(n in sample.sizes){
   for(rep in 1:M){
 
     # Computation of SE output
-    out <- StdDev.SE(full.data[,rep, drop=FALSE], se.method=c("IFiid"))
+    out <- StdDev.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"))
     point.est[rep] <- as.numeric(out$SD)
     SE.est[rep] <- out$IFiid$se
   }
@@ -217,9 +217,9 @@ for(n in sample.sizes){
   
   # Computation over replications
   for(rep in 1:M){
-    
+
     # Computation of SE output
-    out <- SemiSD.SE(full.data[,rep, drop=FALSE], se.method=c("IFiid"))
+    out <- SemiSD.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"))
     point.est[rep] <- as.numeric(out$SSD)
     SE.est[rep] <- out$IFiid$se
   }
