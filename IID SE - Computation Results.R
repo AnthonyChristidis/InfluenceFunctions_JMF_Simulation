@@ -46,7 +46,7 @@ for(n in sample.sizes){
   for(rep in 1:M){
 
     # Computation of SE output
-    out <- SharpeRatio.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"))
+    out <- SR.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"))
     point.est[rep] <- as.numeric(out$SR)
     SE.est[rep] <- out$IFiid$se
   }
@@ -103,7 +103,7 @@ for(n in sample.sizes){
   for(rep in 1:M){
 
     # Computation of SE output
-    out <- SortinoRatio.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"), threshold=c("mean","const")[1])
+    out <- SoR.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"), threshold=c("mean","const")[1])
     point.est[rep] <- as.numeric(out$SoR)
     SE.est[rep] <- out$IFiid$se
   }
@@ -161,7 +161,7 @@ for(n in sample.sizes){
   for(rep in 1:M){
 
     # Computation of SE output
-    out <- StdDev.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"))
+    out <- SD.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"))
     point.est[rep] <- as.numeric(out$SD)
     SE.est[rep] <- out$IFiid$se
   }
