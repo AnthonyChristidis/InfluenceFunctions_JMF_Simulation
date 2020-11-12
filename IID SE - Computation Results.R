@@ -54,7 +54,7 @@ for(n in sample.sizes){
   # Computation of SEs output
   SE.mc <- sd(point.est)
   SE.IF <- mean(SE.est)
-  rej.prob <- 1-mean((point.est-qnorm(0.975)*SE.IF<=true.val)*(point.est+qnorm(0.975)*SE.IF>=true.val))
+  rej.prob <- 1-mean((point.est-qt(0.975, n-1)*SE.IF<=true.val)*(point.est+qt(0.975, n-1)*SE.IF>=true.val))
   SE.bias <- (SE.IF - SE.mc)/SE.mc
   
   # Simulation output
@@ -103,15 +103,15 @@ for(n in sample.sizes){
   for(rep in 1:M){
 
     # Computation of SE output
-    out <- SoR.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"), threshold=c("mean","const")[1])
-    point.est[rep] <- as.numeric(out$SoR)
+    out <- DSR.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"), threshold=c("mean","const")[1])
+    point.est[rep] <- as.numeric(out$DSR)
     SE.est[rep] <- out$IFiid$se
   }
   
   # Computation of SEs output
   SE.mc <- sd(point.est)
   SE.IF <- mean(SE.est)
-  rej.prob <- 1-mean((point.est-qnorm(0.975)*SE.IF<=true.val)*(point.est+qnorm(0.975)*SE.IF>=true.val))
+  rej.prob <- 1-mean((point.est-qt(0.975, n-1)*SE.IF<=true.val)*(point.est+qt(0.975, n-1)*SE.IF>=true.val))
   SE.bias <- (SE.IF - SE.mc)/SE.mc
   
   # Simulation output
@@ -169,7 +169,7 @@ for(n in sample.sizes){
   # Computation of SEs output
   SE.mc <- sd(point.est)
   SE.IF <- mean(SE.est)
-  rej.prob <- 1-mean((point.est-qnorm(0.975)*SE.IF<=true.val)*(point.est+qnorm(0.975)*SE.IF>=true.val))
+  rej.prob <- 1-mean((point.est-qt(0.975, n-1)*SE.IF<=true.val)*(point.est+qt(0.975, n-1)*SE.IF>=true.val))
   SE.bias <- (SE.IF - SE.mc)/SE.mc
   
   # Simulation output
@@ -220,14 +220,14 @@ for(n in sample.sizes){
 
     # Computation of SE output
     out <- SemiSD.SE(full.data[, rep, drop=FALSE], se.method=c("IFiid"))
-    point.est[rep] <- as.numeric(out$SSD)
+    point.est[rep] <- as.numeric(out$SemiSD)
     SE.est[rep] <- out$IFiid$se
   }
   
   # Computation of SEs output
   SE.mc <- sd(point.est)
   SE.IF <- mean(SE.est)
-  rej.prob <- 1-mean((point.est-qnorm(0.975)*SE.IF<=true.val)*(point.est+qnorm(0.975)*SE.IF>=true.val))
+  rej.prob <- 1-mean((point.est-qt(0.975, n-1)*SE.IF<=true.val)*(point.est+qt(0.975, n-1)*SE.IF>=true.val))
   SE.bias <- (SE.IF - SE.mc)/SE.mc
   
   # Simulation output
